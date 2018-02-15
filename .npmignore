@@ -3,7 +3,8 @@ node_modules/
 .git/
 vv/
 venv/
+.env/
 *.pyc
 *.log
 .DS_Store
-
+.idea/
