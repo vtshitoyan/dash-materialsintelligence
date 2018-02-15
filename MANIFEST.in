@@ -1,0 +1,5 @@
+include dash_materialsintelligence/bundle.js
+include dash_materialsintelligence/bundle.js.map
+include dash_materialsintelligence/metadata.json
+include README.md
+include LICENSE.md

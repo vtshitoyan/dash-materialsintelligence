@@ -1,0 +1,15 @@
+build/
+coverage/
+dist/
+lib/
+lib/bundle.js*
+node_modules/
+dash_materialsintelligence/metadata.json
+dash_materialsintelligence/bundle.js*
+.npm
+vv/
+venv/
+*.pyc
+*.egg-info
+*.log
+.DS_Store
