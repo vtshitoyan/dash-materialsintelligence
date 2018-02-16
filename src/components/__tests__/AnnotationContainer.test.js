@@ -12,6 +12,10 @@ describe('AnnotationContainer', () => {
                 {'text': 'a', 'start': 1, 'end': 10},
                 {'text': 'b', 'start': 11, 'end': 21}
                 ]}
+            annotations={[
+                {'id': 'token-0-1', 'annotation': false},
+                {'id': 'token-1-2', 'annotation': true}
+                ]}
         />);
 
         expect(component).to.be.ok;

@@ -3,7 +3,7 @@ from setuptools import setup
 exec (open('dash_materialsintelligence/version.py').read())
 
 setup(
-    name='dash_materialsintelligence',
+    name='dash-materialsintelligence',
     version=__version__,
     author='vtshitoyan',
     packages=['dash_materialsintelligence'],

@@ -27,6 +27,18 @@ app.layout = html.Div([
         annotations=annotations,
         className="testClass",
         id="testId"
+    ),
+    dmi.Label(
+        id="testId",
+        isSelected=False,
+        className="label highlighted",
+        value="Label 1",
+    ),
+    dmi.Label(
+        id="testId",
+        isSelected=False,
+        className="label highlighted",
+        value="Label 2"
     )
 ])
 

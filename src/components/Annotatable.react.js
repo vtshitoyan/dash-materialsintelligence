@@ -33,9 +33,14 @@ export default class Annotatable extends Component {
     }
 
     annotate() {
+        var newState = !this.state.selected
         this.setState({
-            selected: !this.state.selected
+            selected: newState
         });
+        this.props.updateCallback( // updates the parent
+            this.props.index,
+            this.props.id,
+            newState)
     }
 
     render() {

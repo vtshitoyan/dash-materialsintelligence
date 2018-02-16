@@ -10,24 +10,30 @@ import Annotatable from './Annotatable.react';
 export default class AnnotationContainer extends Component {
     constructor(props) {
         super(props);
+        this.state = { annotations: props.annotations }
+        this.updateAnnotation = this.updateAnnotation.bind(this);
         this.log = Logger({level: 'info'});
     }
 
     /**
      * This makes sure the values are always updated
      */
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps){
         this.setState({
-            className: nextProps.className,
             tokens: nextProps.tokens,
-            annotations: nextProps.annotations,
-            id: nextProps.id
+            annotations: nextProps.annotations
             })
     }
 
+    updateAnnotation(index, id, newAnnotation){
+        if (id == this.state.annotations[index]['id']) { // safety check
+            this.state.annotations[index]['annotation'] = newAnnotation
+        }
+    }
+
     render() {
-        const {id, className, tokens, annotations} = this.props;
-        var hasAnnotations = (typeof annotations !== 'undefined')
+        const {id, className, tokens} = this.props;
+        var hasAnnotations = (typeof this.state.annotations !== 'undefined')
         return (
             <div id={id}
                   className={className}
@@ -35,11 +41,13 @@ export default class AnnotationContainer extends Component {
                 {typeof tokens !== 'undefined' && tokens.map(function(token, index) {
                     return [<Annotatable
                         className="token"
-                        key={id+index.toString()}
-                        isSelected={hasAnnotations && annotations[index]}
+                        key={index}
+                        index={index}
+                        isSelected={hasAnnotations && this.state.annotations[index]['annotation']}
                         value={token.text}
-                        id={id+'-token-'+token.start.toString()+'-'+token.end.toString()}/>, <span> </span>]
-                })}
+                        id={this.state.annotations[index]['id']}
+                        updateCallback={this.updateAnnotation}/>, <span> </span>]
+                }, this)}
 
             </div>
         );
@@ -73,5 +81,12 @@ AnnotationContainer.propTypes = {
     /**
      * Start indices opf tokens that are already identified/annotated
      */
-    annotations: PropTypes.arrayOf(PropTypes.bool)
+    annotations: PropTypes.arrayOf(
+        PropTypes.shape(
+            {
+                annotation: PropTypes.bool.isRequired,
+                id: PropTypes.string.isRequired
+            }
+        )
+    )
 };
