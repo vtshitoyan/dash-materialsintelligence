@@ -1,0 +1,138 @@
+{
+  "src/components/Annotatable.react.js": {
+    "description": "Annotatable is a clickable and selectable\nSpan component used to annotate a list of strings.",
+    "displayName": "Annotatable",
+    "methods": [
+      {
+        "name": "handleHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "annotate",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this compnent in Dash callbacks"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A label that will be printed when this component is rendered."
+      },
+      "isSelected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "A label that will be printed when this component is rendered."
+      },
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The value is the text"
+      }
+    }
+  },
+  "src/components/AnnotationContainer.react.js": {
+    "description": "AnnotationContainer is a div containing Annotatable objects",
+    "displayName": "AnnotationContainer",
+    "methods": [
+      {
+        "name": "updateAnnotation",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "index",
+            "type": null
+          },
+          {
+            "name": "id",
+            "type": null
+          },
+          {
+            "name": "newAnnotation",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this compnent in Dash callbacks"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A label that will be printed when this component is rendered."
+      },
+      "tokens": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "start": {
+                "name": "number",
+                "required": true
+              },
+              "end": {
+                "name": "number",
+                "required": true
+              },
+              "text": {
+                "name": "string",
+                "required": true
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "List of tokens used for the annotation"
+      },
+      "annotations": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "annotation": {
+                "name": "bool",
+                "required": true
+              },
+              "id": {
+                "name": "string",
+                "required": true
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "Start indices opf tokens that are already identified/annotated"
+      }
+    }
+  }
+}
