@@ -10,10 +10,10 @@ export default class Annotatable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hover: false,
+//            hover: false,
             annotation: props.annotation,
             currentLabel: props.currentLabel };
-        this.handleHover = this.handleHover.bind(this);
+//        this.handleHover = this.handleHover.bind(this);
         this.annotate = this.annotate.bind(this);
         this.log = Logger({level: 'info'});
     }
@@ -23,18 +23,18 @@ export default class Annotatable extends Component {
      */
     componentWillReceiveProps(nextProps) {
         this.setState({
-            hover: false,
+//            hover: false,
             annotation: nextProps.annotation,
             currentLabel: nextProps.currentLabel,
             value: nextProps.value
             })
     }
 
-    handleHover(){
-        this.setState({
-            hover: !this.state.hover
-        });
-    }
+//    handleHover(){
+//        this.setState({
+//            hover: !this.state.hover
+//        });
+//    }
 
     annotate() {
         var newState = null;
@@ -56,10 +56,10 @@ export default class Annotatable extends Component {
     render() {
         const {id, className, value} = this.props;
         let spanClass = [className]
-        if(this.state.hover) {
-            spanClass.push('highlighted')
-//            spanClass.push('mtl')
-        }
+//        if(this.state.hover) {
+//            spanClass.push('highlighted')
+////            spanClass.push('mtl')
+//        }
 
         if(this.state.annotation != null) {
             spanClass.push(this.state.annotation)
@@ -71,8 +71,8 @@ export default class Annotatable extends Component {
         return (
             <span id={id}
                   className={modifiedClass}
-                  onMouseEnter={this.handleHover}
-                  onMouseLeave={this.handleHover}
+//                  onMouseEnter={this.handleHover}
+//                  onMouseLeave={this.handleHover}
                   onClick={this.annotate}
             >
                 {value}
