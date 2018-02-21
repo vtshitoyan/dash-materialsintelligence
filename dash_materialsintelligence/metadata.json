@@ -33,9 +33,16 @@
         "required": false,
         "description": "A label that will be printed when this component is rendered."
       },
-      "isSelected": {
+      "currentLabel": {
         "type": {
-          "name": "bool"
+          "name": "string"
+        },
+        "required": false,
+        "description": "A label that will be printed when this component is rendered."
+      },
+      "annotation": {
+        "type": {
+          "name": "string"
         },
         "required": false,
         "description": "A label that will be printed when this component is rendered."
@@ -59,6 +66,10 @@
         "modifiers": [],
         "params": [
           {
+            "name": "rowIndex",
+            "type": null
+          },
+          {
             "name": "index",
             "type": null
           },
@@ -68,6 +79,18 @@
           },
           {
             "name": "newAnnotation",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "updateLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "newLabelValue",
             "type": null
           }
         ],
@@ -93,14 +116,109 @@
         "type": {
           "name": "arrayOf",
           "value": {
+            "name": "arrayOf",
+            "value": {
+              "name": "shape",
+              "value": {
+                "start": {
+                  "name": "number",
+                  "required": true
+                },
+                "end": {
+                  "name": "number",
+                  "required": true
+                },
+                "text": {
+                  "name": "string",
+                  "required": true
+                }
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "List of tokens used for the annotation"
+      },
+      "annotations": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "arrayOf",
+            "value": {
+              "name": "shape",
+              "value": {
+                "annotation": {
+                  "name": "string",
+                  "required": false
+                },
+                "id": {
+                  "name": "string",
+                  "required": false
+                }
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "Start indices opf tokens that are already identified/annotated"
+      },
+      "labels": {
+        "type": {
+          "name": "custom",
+          "raw": "LabelsContainer.propTypes.labels"
+        },
+        "required": false,
+        "description": "This goes in to create the labels"
+      },
+      "selectedValue": {
+        "type": {
+          "name": "string"
+        },
+        "required": true,
+        "description": "Start indices opf tokens that are already identified/annotated"
+      }
+    }
+  },
+  "src/components/LabelsContainer.react.js": {
+    "description": "LabelsContainer is a div containing labels",
+    "displayName": "LabelsContainer",
+    "methods": [
+      {
+        "name": "updateLabel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "changeEvent",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this compnent in Dash callbacks"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A label that will be printed when this component is rendered."
+      },
+      "labels": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
             "name": "shape",
             "value": {
-              "start": {
-                "name": "number",
-                "required": true
-              },
-              "end": {
-                "name": "number",
+              "value": {
+                "name": "string",
                 "required": true
               },
               "text": {
@@ -113,24 +231,11 @@
         "required": false,
         "description": "List of tokens used for the annotation"
       },
-      "annotations": {
+      "selectedValue": {
         "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "annotation": {
-                "name": "bool",
-                "required": true
-              },
-              "id": {
-                "name": "string",
-                "required": true
-              }
-            }
-          }
+          "name": "string"
         },
-        "required": false,
+        "required": true,
         "description": "Start indices opf tokens that are already identified/annotated"
       }
     }

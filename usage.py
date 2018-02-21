@@ -6,40 +6,41 @@ app = dash.Dash('')
 
 app.scripts.config.serve_locally = True
 
-testTokens = [{'text': 'ab', 'start': 1, 'end': 3},
+testTokens = [[{'text': 'ab', 'start': 1, 'end': 3},
               {'text': 'cd', 'start': 4, 'end': 6},
               {'text': 'ef', 'start': 7, 'end': 9},
               {'text': '.', 'start': 9, 'end': 10},
-              {'text': 'gf', 'start': 11, 'end': 13},
-              ]
-annotations = [True, True, False, False, False]
+              {'text': 'gf', 'start': 11, 'end': 13}],
+              [{'text': 'AB', 'start': 1, 'end': 3},
+              {'text': 'CD', 'start': 4, 'end': 6},
+              {'text': 'EF', 'start': 7, 'end': 9},
+              {'text': '.', 'start': 9, 'end': 10},
+              {'text': 'GF', 'start': 11, 'end': 13}]]
+
+annotations = [[{'id': 'token-0-2', 'annotation': None},
+               {'id': 'token-3-5', 'annotation': 'material'},
+               {'id': 'token-6-8', 'annotation': None},
+               {'id': 'token-8-9', 'annotation': 'inorganic_crystal'},
+               {'id': 'token-10-12', 'annotation': None}],
+               [{'id': 'token-0-2', 'annotation': 'main_material'},
+               {'id': 'token-3-5', 'annotation': None},
+               {'id': 'token-6-8', 'annotation': None},
+               {'id': 'token-8-9', 'annotation': None},
+               {'id': 'token-10-12', 'annotation': None}]]
+
+testLabels = [{'text': 'Material', 'value': 'material'},
+              {'text': 'Inorganic Crystal', 'value': 'inorganic_crystal'},
+              {'text': 'Main Material', 'value': 'main_material'}]
 
 app.layout = html.Div([
-    dmi.Annotatable(
-        id='input',
-        value='my-value',
-        className='abs-token',
-        isSelected=True
-    ),
-    html.Div(id='output'),
     dmi.AnnotationContainer(
         tokens=testTokens,
         annotations=annotations,
         className="testClass",
-        id="testId"
-    ),
-    dmi.Label(
         id="testId",
-        isSelected=False,
-        className="label highlighted",
-        value="Label 1",
+        labels=testLabels,
+        selectedValue=testLabels[1]["value"]
     ),
-    dmi.Label(
-        id="testId",
-        isSelected=False,
-        className="label highlighted",
-        value="Label 2"
-    )
 ])
 
 # @app.callback(

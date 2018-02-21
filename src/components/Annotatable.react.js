@@ -9,7 +9,10 @@ import Logger from 'console-log-level';
 export default class Annotatable extends Component {
     constructor(props) {
         super(props);
-        this.state = { hover: false, selected: props.isSelected };
+        this.state = {
+            hover: false,
+            annotation: props.annotation,
+            currentLabel: props.currentLabel };
         this.handleHover = this.handleHover.bind(this);
         this.annotate = this.annotate.bind(this);
         this.log = Logger({level: 'info'});
@@ -21,7 +24,8 @@ export default class Annotatable extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             hover: false,
-            selected: nextProps.isSelected,
+            annotation: nextProps.annotation,
+            currentLabel: nextProps.currentLabel,
             value: nextProps.value
             })
     }
@@ -33,11 +37,17 @@ export default class Annotatable extends Component {
     }
 
     annotate() {
-        var newState = !this.state.selected
+        var newState = null;
+        this.log.warn(this.state.annotation)
+        this.log.warn(this.props.currentLabel)
+        if (this.props.currentLabel != this.state.annotation) {
+            newState = this.props.currentLabel;
+        }
         this.setState({
-            selected: newState
+            annotation: newState
         });
         this.props.updateCallback( // updates the parent
+            this.props.rowIndex,
             this.props.index,
             this.props.id,
             newState)
@@ -51,8 +61,8 @@ export default class Annotatable extends Component {
 //            spanClass.push('mtl')
         }
 
-        if(this.state.selected) {
-            spanClass.push('mtl')
+        if(this.state.annotation != null) {
+            spanClass.push(this.state.annotation)
             spanClass.push('highlighted')
         }
 
@@ -85,7 +95,12 @@ Annotatable.propTypes = {
      /**
      * A label that will be printed when this component is rendered.
      */
-    isSelected: PropTypes.bool,
+    currentLabel: PropTypes.string,
+
+    /**
+     * A label that will be printed when this component is rendered.
+     */
+    annotation: PropTypes.string,
 
     /**
      * The value is the text

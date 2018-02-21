@@ -5,7 +5,7 @@ import Annotatable from '../Annotatable.react';
 describe('Annotatable', () => {
 
     it('renders', () => {
-        const component = shallow(<Annotatable isSelected={true}/>);
+        const component = shallow(<Annotatable annotation='material' current_label="inorganic_crystal"/>);
         expect(component).to.be.ok;
     });
 });

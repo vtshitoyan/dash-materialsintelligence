@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import update from 'immutability-helper'
 import Logger from 'console-log-level';
 import Annotatable from './Annotatable.react';
+import LabelsContainer from './LabelsContainer.react';
 
 
 /**
@@ -10,8 +12,9 @@ import Annotatable from './Annotatable.react';
 export default class AnnotationContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { annotations: props.annotations }
+        this.state = { annotations: props.annotations, selectedValue: props.selectedValue }
         this.updateAnnotation = this.updateAnnotation.bind(this);
+        this.updateLabel = this.updateLabel.bind(this);
         this.log = Logger({level: 'info'});
     }
 
@@ -25,31 +28,58 @@ export default class AnnotationContainer extends Component {
             })
     }
 
-    updateAnnotation(index, id, newAnnotation){
-        if (id == this.state.annotations[index]['id']) { // safety check
-            this.state.annotations[index]['annotation'] = newAnnotation
+    updateAnnotation(rowIndex, index, id, newAnnotation){
+        this.log.info(this.state.annotations)
+        if (id == rowIndex + '-' + this.state.annotations[rowIndex][index]['id']) { // safety check
+            this.setState({
+                annotations: update(
+                    this.state.annotations,
+                    {[rowIndex]: {[index]: {annotation : {$set: newAnnotation}}}})
+            })
         }
+        this.log.info(this.state.selectedValue)
+    }
+
+    updateLabel(newLabelValue){
+        this.setState({
+            selectedValue: newLabelValue
+        });
     }
 
     render() {
-        const {id, className, tokens} = this.props;
+        const {id, className, tokens, labels} = this.props;
         var hasAnnotations = (typeof this.state.annotations !== 'undefined')
         return (
-            <div id={id}
-                  className={className}
-            >
-                {typeof tokens !== 'undefined' && tokens.map(function(token, index) {
-                    return [<Annotatable
-                        className="token"
-                        key={index}
-                        index={index}
-                        isSelected={hasAnnotations && this.state.annotations[index]['annotation']}
-                        value={token.text}
-                        id={this.state.annotations[index]['id']}
-                        updateCallback={this.updateAnnotation}/>, <span> </span>]
-                }, this)}
+            <div id={id} className={className}>
+            <LabelsContainer
+                id={id + '-labels'}
+                className={"labels"}
+                labels={labels}
+                selectedValue={this.state.selectedValue}
+                updateLabelCallback={this.updateLabel}/>
+            <div>
+                {typeof tokens !== 'undefined' && tokens.map((tokenRow, rowIndex) => {
+                     return (
+                         <div
+                            key={rowIndex}
+                            id={id + '-annotation-' + rowIndex}
+                            className={'annotation-' + rowIndex}>
+                         {tokenRow.map((token, index) => {
+                            return [<Annotatable
+                                className="token"
+                                key={rowIndex.toString() + '-' + index.toString()}
+                                index={index}
+                                rowIndex={rowIndex}
+                                annotation={hasAnnotations && this.state.annotations[rowIndex][index]['annotation']}
+                                currentLabel={this.state.selectedValue}
+                                value={token.text}
+                                id={rowIndex + '-' + this.state.annotations[rowIndex][index]['id']}
+                                updateCallback={this.updateAnnotation}/>, <span> </span>]
+                         })}</div>
+                     )
+                })}
 
-            </div>
+            </div></div>
         );
     }
 }
@@ -68,7 +98,7 @@ AnnotationContainer.propTypes = {
     /**
      * List of tokens used for the annotation
      */
-    tokens: PropTypes.arrayOf(
+    tokens: PropTypes.arrayOf(PropTypes.arrayOf(
         PropTypes.shape(
             {
                 start: PropTypes.number.isRequired,
@@ -76,17 +106,27 @@ AnnotationContainer.propTypes = {
                 text: PropTypes.string.isRequired
             }
         )
-    ),
+    )),
 
     /**
      * Start indices opf tokens that are already identified/annotated
      */
-    annotations: PropTypes.arrayOf(
+    annotations: PropTypes.arrayOf(PropTypes.arrayOf(
         PropTypes.shape(
             {
-                annotation: PropTypes.bool.isRequired,
-                id: PropTypes.string.isRequired
+                annotation: PropTypes.string,
+                id: PropTypes.string
             }
         )
-    )
+    )),
+
+    /**
+     * This goes in to create the labels
+     */
+    labels: LabelsContainer.propTypes.labels,
+
+    /**
+     * Start indices opf tokens that are already identified/annotated
+     */
+    selectedValue: PropTypes.string.isRequired
 };
