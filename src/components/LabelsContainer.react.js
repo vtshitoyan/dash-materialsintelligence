@@ -37,8 +37,7 @@ export default class LabelsContainer extends Component {
                   className={className}
             >
                 {typeof labels !== 'undefined' && labels.map(function(label, index) {
-                    return <label key={index}><input
-                        className={'highlighted label ' + label.value}
+                    return <label key={index} className={'highlighted label ' + label.value}><input
                         type="radio"
                         key={index}
                         checked={this.state.selectedValue === label.value}
