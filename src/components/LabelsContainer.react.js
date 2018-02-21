@@ -34,8 +34,8 @@ export default class LabelsContainer extends Component {
         const {id, className, labels} = this.props;
         return (
             <div id={id}
-                  className={className}
-            >
+                  className={className}>
+                <span>Labels:</span>
                 {typeof labels !== 'undefined' && labels.map(function(label, index) {
                     return <label key={index} className={'highlighted label ' + label.value}><input
                         type="radio"
