@@ -8,11 +8,17 @@ import PropTypes from 'prop-types';
 export default class DropdownCreatable extends Component {
     constructor(props) {
         super(props);
-        this.state = { value: this.props.value }
+        this.state = { value: null };
     }
 
     updateState(element) {
-        this.setState({ value: element })
+        this.setState({ value: element });
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            value: nextProps.value
+            });
     }
 
     render() {
