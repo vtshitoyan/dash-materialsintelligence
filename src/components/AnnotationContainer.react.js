@@ -24,7 +24,8 @@ export default class AnnotationContainer extends Component {
     componentWillReceiveProps(nextProps){
         this.setState({
             tokens: nextProps.tokens,
-            annotations: nextProps.annotations
+            annotations: nextProps.annotations,
+            selectedValue: nextProps.selectedValue
             })
     }
 
