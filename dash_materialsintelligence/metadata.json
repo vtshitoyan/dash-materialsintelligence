@@ -4,6 +4,13 @@
     "displayName": "Annotatable",
     "methods": [
       {
+        "name": "handleHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
         "name": "annotate",
         "docblock": null,
         "modifiers": [],

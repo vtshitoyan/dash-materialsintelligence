@@ -29,7 +29,6 @@ export default class AnnotationContainer extends Component {
     }
 
     updateAnnotation(rowIndex, index, id, newAnnotation){
-        this.log.info(this.state.annotations)
         if (id == rowIndex + '-' + this.state.annotations[rowIndex][index]['id']) { // safety check
             this.setState({
                 annotations: update(
@@ -37,7 +36,6 @@ export default class AnnotationContainer extends Component {
                     {[rowIndex]: {[index]: {annotation : {$set: newAnnotation}}}})
             })
         }
-        this.log.info(this.state.selectedValue)
     }
 
     updateLabel(newLabelValue){
