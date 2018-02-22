@@ -26,7 +26,8 @@ _js_dist = [
 
 _css_dist = [
     {
-        "external_url": "https://cdn.rawgit.com/JedWatson/react-select/master/dist/react-select.min.css",
+        "relative_package_path": "react-select.css",
+        "namespace": "dash_materialsintelligence",
     }
 ]
 
