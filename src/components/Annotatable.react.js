@@ -23,7 +23,7 @@ export default class Annotatable extends Component {
      */
     componentWillReceiveProps(nextProps) {
         this.setState({
-            hover: false,
+//            hover: false,
             annotation: nextProps.annotation,
             currentLabel: nextProps.currentLabel,
             value: nextProps.value
