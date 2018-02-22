@@ -179,6 +179,47 @@
       }
     }
   },
+  "src/components/DropdownCreatable.react.js": {
+    "description": "ReactSelect extends react-select to work with dash",
+    "displayName": "DropdownCreatable",
+    "methods": [
+      {
+        "name": "updateState",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "element",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "options": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "select options"
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "the id"
+      },
+      "multi": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "multi-select or not"
+      }
+    }
+  },
   "src/components/LabelsContainer.react.js": {
     "description": "LabelsContainer is a div containing labels",
     "displayName": "LabelsContainer",

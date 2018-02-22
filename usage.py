@@ -4,6 +4,10 @@ import dash_html_components as html
 
 app = dash.Dash('')
 
+app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
+# app.css.append_css({"external_url": "https://s3-us-west-1.amazonaws.com/matstract/react-select.css"})
+
+
 app.scripts.config.serve_locally = True
 
 testTokens = [[{'text': 'ab', 'start': 1, 'end': 3},
@@ -41,6 +45,13 @@ app.layout = html.Div([
         labels=testLabels,
         selectedValue=testLabels[1]["value"]
     ),
+    dmi.DropdownCreatable(
+        options=[
+            {'value': 'R', 'label': 'Red'},
+            {'value': 'G', 'label': 'Green'},
+            {'value': 'B', 'label': 'Blue'}],
+        multi=True
+    )
 ])
 
 # @app.callback(
