@@ -55,10 +55,10 @@ export default class Annotatable extends Component {
         const {id, className, value} = this.props;
         let spanClass = [className]
 
-        if(this.state.hover&&this.state.currentLabel!=this.state.annotation) {
+        if(this.state.hover) {
             spanClass.push(this.state.currentLabel)
             spanClass.push('highlighted')
-        } else if (this.state.annotation != null && !this.state.hover) {
+        } else if (this.state.annotation != null) {
             spanClass.push(this.state.annotation)
             spanClass.push('highlighted')
         }
