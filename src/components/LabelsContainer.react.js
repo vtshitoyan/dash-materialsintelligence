@@ -14,6 +14,7 @@ export default class LabelsContainer extends Component {
         this.log = Logger({level: 'info'});
     }
 
+
     updateLabel(changeEvent){
         this.setState({ selectedValue: changeEvent.target.value });
         this.props.updateLabelCallback( // updates the parent

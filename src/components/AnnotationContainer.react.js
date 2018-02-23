@@ -23,9 +23,8 @@ export default class AnnotationContainer extends Component {
      */
     componentWillReceiveProps(nextProps){
         this.setState({
-            tokens: nextProps.tokens,
-            annotations: nextProps.annotations,
-            selectedValue: nextProps.selectedValue
+            annotations: nextProps.annotations
+//            selectedValue: nextProps.selectedValue
             })
     }
 
@@ -37,6 +36,7 @@ export default class AnnotationContainer extends Component {
                     {[rowIndex]: {[index]: {annotation : {$set: newAnnotation}}}})
             })
         }
+        this.log.info(this.state.annotations)
     }
 
     updateLabel(newLabelValue){
