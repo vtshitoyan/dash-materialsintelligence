@@ -22,12 +22,13 @@ export default class Annotatable extends Component {
      * This makes sure the values are always updated
      */
     componentWillReceiveProps(nextProps) {
+        this.setState({
+            currentLabel: nextProps.currentLabel
+        })
         if (this.props.value != nextProps.value) {
             this.setState({
-    //            hover: false,
-                annotation: nextProps.annotation,
-                currentLabel: nextProps.currentLabel
-                })
+                annotation: nextProps.annotation
+            })
         }
     }
 

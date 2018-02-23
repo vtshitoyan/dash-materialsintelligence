@@ -14,16 +14,6 @@ export default class LabelsContainer extends Component {
         this.log = Logger({level: 'info'});
     }
 
-    /**
-     * This makes sure the values are always updated
-     */
-    componentWillReceiveProps(nextProps){
-        this.setState({
-            labels: nextProps.labels,
-            selectedValue: nextProps.selectedValue
-            })
-    }
-
     updateLabel(changeEvent){
         this.setState({ selectedValue: changeEvent.target.value });
         this.props.updateLabelCallback( // updates the parent
