@@ -12,7 +12,7 @@ import LabelsContainer from './LabelsContainer.react';
 export default class AnnotationContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { annotations: props.annotations, selectedValue: props.selectedValue }
+        this.state = { annotations: props.pastAnnotations, selectedValue: props.selectedValue }
         this.updateAnnotation = this.updateAnnotation.bind(this);
         this.updateLabel = this.updateLabel.bind(this);
         this.log = Logger({level: 'info'});
@@ -24,19 +24,18 @@ export default class AnnotationContainer extends Component {
     componentWillReceiveProps(nextProps){
         this.setState({
             annotations: nextProps.annotations
-//            selectedValue: nextProps.selectedValue
-            })
+            });
     }
 
     updateAnnotation(rowIndex, index, id, newAnnotation){
         if (id == rowIndex + '-' + this.state.annotations[rowIndex][index]['id']) { // safety check
-            this.setState({
-                annotations: update(
+            var newAnnotations = update(
                     this.state.annotations,
-                    {[rowIndex]: {[index]: {annotation : {$set: newAnnotation}}}})
-            })
+                    {[rowIndex]: {[index]: {annotation : {$set: newAnnotation}}}});
+            this.setState({
+                annotations: newAnnotations
+            });
         }
-        this.log.info(this.state.annotations)
     }
 
     updateLabel(newLabelValue){
@@ -47,14 +46,15 @@ export default class AnnotationContainer extends Component {
 
     render() {
         const {id, className, tokens, labels} = this.props;
-        var hasAnnotations = (typeof this.state.annotations !== 'undefined')
+        const {annotations, selectedValue} = this.state
+        var hasAnnotations = (typeof annotations !== 'undefined')
         return (
             <div id={id} className={className}>
             <LabelsContainer
                 id={id + '-labels'}
                 className={"labels"}
                 labels={labels}
-                selectedValue={this.state.selectedValue}
+                selectedValue={selectedValue}
                 updateLabelCallback={this.updateLabel}/>
             <div>
                 {typeof tokens !== 'undefined' && tokens.map((tokenRow, rowIndex) => {
@@ -64,15 +64,16 @@ export default class AnnotationContainer extends Component {
                             id={id + '-annotation-' + rowIndex}
                             className={'annotation-' + rowIndex}>
                          {tokenRow.map((token, index) => {
+                            this.log.info(annotations[rowIndex][index]);
                             return [<Annotatable
                                 className="token"
                                 key={rowIndex.toString() + '-' + index.toString()}
                                 index={index}
                                 rowIndex={rowIndex}
-                                annotation={hasAnnotations && this.state.annotations[rowIndex][index]['annotation']}
-                                currentLabel={this.state.selectedValue}
+                                annotation={hasAnnotations && annotations[rowIndex][index]['annotation']}
+                                currentLabel={selectedValue}
                                 value={token.text}
-                                id={rowIndex + '-' + this.state.annotations[rowIndex][index]['id']}
+                                id={rowIndex + '-' + annotations[rowIndex][index]['id']}
                                 updateCallback={this.updateAnnotation}/>, <span> </span>]
                          })}</div>
                      )
@@ -110,7 +111,7 @@ AnnotationContainer.propTypes = {
     /**
      * Start indices opf tokens that are already identified/annotated
      */
-    annotations: PropTypes.arrayOf(PropTypes.arrayOf(
+    pastAnnotations: PropTypes.arrayOf(PropTypes.arrayOf(
         PropTypes.shape(
             {
                 annotation: PropTypes.string,

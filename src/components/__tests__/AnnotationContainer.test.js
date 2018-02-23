@@ -21,7 +21,7 @@ describe('AnnotationContainer', () => {
                            {'text': 'EF', 'start': 7, 'end': 9},
                            {'text': '.', 'start': 9, 'end': 10},
                            {'text': 'GF', 'start': 11, 'end': 13}]]}
-            annotations={[[{'id': 'token-0-2', 'annotation': null},
+            pastAnnotations={[[{'id': 'token-0-2', 'annotation': null},
                       {'id': 'token-3-5', 'annotation': 'material'},
                       {'id': 'token-6-8', 'annotation': null},
                       {'id': 'token-8-9', 'annotation': 'inorganic_crystal'},
