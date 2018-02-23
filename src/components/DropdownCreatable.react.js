@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 export default class DropdownCreatable extends Component {
     constructor(props) {
         super(props);
-        this.state = { value: null };
+        this.state = { value: this.props.value };
     }
 
     updateState(element) {
@@ -43,5 +43,10 @@ DropdownCreatable.propTypes = {
     /**
      * multi-select or not
      */
-    multi: PropTypes.bool
+    multi: PropTypes.bool,
+
+    /**
+     * selected value
+     */
+    value: PropTypes.any
 };

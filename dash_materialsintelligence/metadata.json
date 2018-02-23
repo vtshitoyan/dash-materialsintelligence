@@ -217,6 +217,13 @@
         },
         "required": false,
         "description": "multi-select or not"
+      },
+      "value": {
+        "type": {
+          "name": "any"
+        },
+        "required": false,
+        "description": "selected value"
       }
     }
   },
