@@ -12,7 +12,9 @@ import LabelsContainer from './LabelsContainer.react';
 export default class AnnotationContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { annotations: props.annotations, selectedValue: props.selectedValue }
+        this.state = { annotations: props.annotations,
+                       selectedValue: props.selectedValue
+                       }
         this.updateAnnotation = this.updateAnnotation.bind(this);
         this.updateLabel = this.updateLabel.bind(this);
         this.log = Logger({level: 'info'});
@@ -37,6 +39,7 @@ export default class AnnotationContainer extends Component {
             this.setState({
                 annotations: newAnnotations
             });
+            this.props.setProps({annotations: newAnnotations}) // for dash
         }
     }
 

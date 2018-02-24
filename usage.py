@@ -1,10 +1,14 @@
 import dash_materialsintelligence as dmi
 import dash
 import dash_html_components as html
+from dash.dependencies import Input, Output, State
+import dash_core_components as dcc
+import pprint
 
 app = dash.Dash('')
 
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
+app.config.suppress_callback_exceptions = True
 
 app.scripts.config.serve_locally = True
 
@@ -40,7 +44,7 @@ app.layout = html.Div([
         tokens=testTokens,
         annotations=annotations,
         className="testClass",
-        id="testId",
+        id="annotation_container",
         labels=testLabels,
         selectedValue=testLabels[1]["value"]
     ),
@@ -49,8 +53,12 @@ app.layout = html.Div([
             {'value': 'R', 'label': 'Red'},
             {'value': 'G', 'label': 'Green'},
             {'value': 'B', 'label': 'Blue'}],
-        multi=True
-    )
+        multi=True,
+        id="tags_selector",
+        value=None,
+    ),
+    html.Div("nothing so far", id="test_output"),
+    html.Div(html.Button("Confirm", id="annotate_confirm"))
 ])
 
 # @app.callback(
@@ -60,5 +68,26 @@ app.layout = html.Div([
 #     return 'You have clicked {} times'.format(value)
 
 
+"""
+Annotation App Callbacks
+"""
+@app.callback(
+    Output('test_output', 'children'),
+    [Input('annotate_confirm', 'n_clicks')],
+    [State('annotation_container', 'annotations'),
+     State('tags_selector', 'value')])
+def load_next_abstract(
+        n_clicks,
+        annotations,
+        tags):
+    pprint.pprint("here")
+    if n_clicks is not None:
+        pprint.pprint(annotations)
+        pprint.pprint(tags)
+        # do something to record the annotation
+    return html.Div("annotations confirmed")
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
+
