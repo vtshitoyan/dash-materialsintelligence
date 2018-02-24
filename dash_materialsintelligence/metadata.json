@@ -176,6 +176,13 @@
         },
         "required": true,
         "description": "Start indices opf tokens that are already identified/annotated"
+      },
+      "doi": {
+        "type": {
+          "name": "string"
+        },
+        "required": true,
+        "description": "Unique doi for the container"
       }
     }
   },

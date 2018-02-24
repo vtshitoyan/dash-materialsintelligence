@@ -22,9 +22,11 @@ export default class AnnotationContainer extends Component {
      * This makes sure the values are always updated
      */
     componentWillReceiveProps(nextProps){
-        this.setState({
-            annotations: nextProps.annotations
+        if (nextProps.doi != this.props.doi) {
+            this.setState({
+                annotations: nextProps.annotations
             });
+        }
     }
 
     updateAnnotation(rowIndex, index, id, newAnnotation){
@@ -128,5 +130,10 @@ AnnotationContainer.propTypes = {
     /**
      * Start indices opf tokens that are already identified/annotated
      */
-    selectedValue: PropTypes.string.isRequired
+    selectedValue: PropTypes.string.isRequired,
+
+    /**
+     * Unique doi for the container
+     */
+    doi: PropTypes.string.isRequired
 };

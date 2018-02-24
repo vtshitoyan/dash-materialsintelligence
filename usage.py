@@ -36,6 +36,7 @@ testLabels = [{'text': 'Material', 'value': 'material'},
 
 app.layout = html.Div([
     dmi.AnnotationContainer(
+        doi="test",
         tokens=testTokens,
         annotations=annotations,
         className="testClass",

@@ -8,6 +8,7 @@ describe('AnnotationContainer', () => {
         const component = shallow(
         <AnnotationContainer
             className="random stuff"
+            doi="test doi"
             labels={[{'text': 'Material', 'value': 'material'},
                      {'text': 'Inorganic Crystal', 'value': 'inorganic_crystal'},
                      {'text': 'Main Material', 'value': 'main_material'}]}
