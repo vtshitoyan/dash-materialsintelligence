@@ -139,7 +139,7 @@
         "required": false,
         "description": "List of tokens used for the annotation"
       },
-      "pastAnnotations": {
+      "annotations": {
         "type": {
           "name": "arrayOf",
           "value": {

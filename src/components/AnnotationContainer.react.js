@@ -12,7 +12,7 @@ import LabelsContainer from './LabelsContainer.react';
 export default class AnnotationContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { annotations: props.pastAnnotations, selectedValue: props.selectedValue }
+        this.state = { annotations: props.annotations, selectedValue: props.selectedValue }
         this.updateAnnotation = this.updateAnnotation.bind(this);
         this.updateLabel = this.updateLabel.bind(this);
         this.log = Logger({level: 'info'});
@@ -64,7 +64,7 @@ export default class AnnotationContainer extends Component {
                             id={id + '-annotation-' + rowIndex}
                             className={'annotation-' + rowIndex}>
                          {tokenRow.map((token, index) => {
-                            this.log.info(annotations[rowIndex][index]);
+                            this.log.info(annotations[rowIndex][index])
                             return [<Annotatable
                                 className="token"
                                 key={rowIndex.toString() + '-' + index.toString()}
@@ -111,7 +111,7 @@ AnnotationContainer.propTypes = {
     /**
      * Start indices opf tokens that are already identified/annotated
      */
-    pastAnnotations: PropTypes.arrayOf(PropTypes.arrayOf(
+    annotations: PropTypes.arrayOf(PropTypes.arrayOf(
         PropTypes.shape(
             {
                 annotation: PropTypes.string,
