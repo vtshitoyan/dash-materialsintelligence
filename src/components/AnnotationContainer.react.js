@@ -12,10 +12,10 @@ import LabelsContainer from './LabelsContainer.react';
 export default class AnnotationContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { annotations: props.annotations,
+        this.state = { tokens: props.tokens,
                        selectedValue: props.selectedValue
                        }
-        this.updateAnnotation = this.updateAnnotation.bind(this);
+        this.updateToken = this.updateToken.bind(this);
         this.updateLabel = this.updateLabel.bind(this);
         this.log = Logger({level: 'info'});
     }
@@ -26,20 +26,20 @@ export default class AnnotationContainer extends Component {
     componentWillReceiveProps(nextProps){
         if (nextProps.doi != this.props.doi) {
             this.setState({
-                annotations: nextProps.annotations
+                tokens: nextProps.tokens
             });
         }
     }
 
-    updateAnnotation(rowIndex, index, id, newAnnotation){
-        if (id == rowIndex + '-' + this.state.annotations[rowIndex][index]['id']) { // safety check
-            var newAnnotations = update(
-                    this.state.annotations,
+    updateToken(rowIndex, index, id, newAnnotation){
+        if (id == rowIndex + '-' + this.state.tokens[rowIndex][index]['id']) { // safety check
+            var newTokens = update(
+                    this.state.tokens,
                     {[rowIndex]: {[index]: {annotation : {$set: newAnnotation}}}});
             this.setState({
-                annotations: newAnnotations
+                tokens: newTokens
             });
-            this.props.setProps({annotations: newAnnotations}) // for dash
+            this.props.setProps({tokens: newTokens}) // for dash
         }
     }
 
@@ -50,9 +50,9 @@ export default class AnnotationContainer extends Component {
     }
 
     render() {
-        const {id, className, tokens, labels} = this.props;
-        const {annotations, selectedValue} = this.state
-        var hasAnnotations = (typeof annotations !== 'undefined')
+        const {id, className, labels} = this.props;
+        const {tokens, selectedValue} = this.state
+        var hasTokens = (typeof tokens !== 'undefined')
         return (
             <div id={id} className={className}>
             <LabelsContainer
@@ -66,20 +66,20 @@ export default class AnnotationContainer extends Component {
                      return (
                          <div
                             key={rowIndex}
-                            id={id + '-annotation-' + rowIndex}
-                            className={'annotation-' + rowIndex}>
+                            id={id + '-tokens-' + rowIndex}
+                            className={'tokens-' + rowIndex}>
                          {tokenRow.map((token, index) => {
-                            this.log.info(annotations[rowIndex][index])
+//                            this.log.info(tokens[rowIndex][index])
                             return [<Annotatable
                                 className="token"
                                 key={rowIndex.toString() + '-' + index.toString()}
                                 index={index}
                                 rowIndex={rowIndex}
-                                annotation={hasAnnotations && annotations[rowIndex][index]['annotation']}
+                                annotation={hasTokens && tokens[rowIndex][index]['annotation']}
                                 currentLabel={selectedValue}
                                 value={token.text}
-                                id={rowIndex + '-' + annotations[rowIndex][index]['id']}
-                                updateCallback={this.updateAnnotation}/>, <span> </span>]
+                                id={rowIndex + '-' + tokens[rowIndex][index]['id']}
+                                updateCallback={this.updateToken}/>, <span> </span>]
                          })}</div>
                      )
                 })}
@@ -108,17 +108,7 @@ AnnotationContainer.propTypes = {
             {
                 start: PropTypes.number.isRequired,
                 end: PropTypes.number.isRequired,
-                text: PropTypes.string.isRequired
-            }
-        )
-    )),
-
-    /**
-     * Start indices opf tokens that are already identified/annotated
-     */
-    annotations: PropTypes.arrayOf(PropTypes.arrayOf(
-        PropTypes.shape(
-            {
+                text: PropTypes.string.isRequired,
                 annotation: PropTypes.string,
                 id: PropTypes.string
             }

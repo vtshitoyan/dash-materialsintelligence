@@ -12,27 +12,16 @@ app.config.suppress_callback_exceptions = True
 
 app.scripts.config.serve_locally = True
 
-testTokens = [[{'text': 'ab', 'start': 1, 'end': 3},
-              {'text': 'cd', 'start': 4, 'end': 6},
-              {'text': 'ef', 'start': 7, 'end': 9},
-              {'text': '.', 'start': 9, 'end': 10},
-              {'text': 'gf', 'start': 11, 'end': 13}],
-              [{'text': 'AB', 'start': 1, 'end': 3},
-              {'text': 'CD', 'start': 4, 'end': 6},
-              {'text': 'EF', 'start': 7, 'end': 9},
-              {'text': '.', 'start': 9, 'end': 10},
-              {'text': 'GF', 'start': 11, 'end': 13}]]
-
-annotations = [[{'id': 'token-0-2', 'annotation': None},
-               {'id': 'token-3-5', 'annotation': 'material'},
-               {'id': 'token-6-8', 'annotation': None},
-               {'id': 'token-8-9', 'annotation': 'inorganic_crystal'},
-               {'id': 'token-10-12', 'annotation': None}],
-               [{'id': 'token-0-2', 'annotation': 'main_material'},
-               {'id': 'token-3-5', 'annotation': None},
-               {'id': 'token-6-8', 'annotation': None},
-               {'id': 'token-8-9', 'annotation': None},
-               {'id': 'token-10-12', 'annotation': None}]]
+testTokens = [[{'id': 'token-0-2', 'text': 'ab', 'start': 0, 'end': 2, 'annotation': None},
+               {'id': 'token-3-5', 'text': 'cd', 'start': 3, 'end': 5, 'annotation': None},
+               {'id': 'token-6-8', 'text': 'ef', 'start': 6, 'end': 8, 'annotation': 'main_material'},
+               {'id': 'token-8-9', 'text': '.', 'start': 8, 'end': 9, 'annotation': None},
+               {'id': 'token-10-12', 'text': 'gf', 'start': 10, 'end': 12, 'annotation': 'material'}],
+               [{'id': 'token-0-2', 'text': 'AB', 'start': 0, 'end': 2, 'annotation': None},
+               {'id': 'token-3-5', 'text': 'CD', 'start': 3, 'end': 5, 'annotation': None},
+               {'id': 'token-6-8', 'text': 'EF', 'start': 6, 'end': 8, 'annotation': None},
+               {'id': 'token-8-9', 'text': '.', 'start': 8, 'end': 9, 'annotation': 'inorganic_crystal'},
+               {'id': 'token-10-12', 'text': 'GF', 'start': 10, 'end': 12, 'annotation': None}]]
 
 testLabels = [{'text': 'Material', 'value': 'material'},
               {'text': 'Inorganic Crystal', 'value': 'inorganic_crystal'},
@@ -42,7 +31,6 @@ app.layout = html.Div([
     dmi.AnnotationContainer(
         doi="test",
         tokens=testTokens,
-        annotations=annotations,
         className="testClass",
         id="annotation_container",
         labels=testLabels,
@@ -74,15 +62,15 @@ Annotation App Callbacks
 @app.callback(
     Output('test_output', 'children'),
     [Input('annotate_confirm', 'n_clicks')],
-    [State('annotation_container', 'annotations'),
+    [State('annotation_container', 'tokens'),
      State('tags_selector', 'value')])
 def load_next_abstract(
         n_clicks,
-        annotations,
+        tokens,
         tags):
     pprint.pprint("here")
     if n_clicks is not None:
-        pprint.pprint(annotations)
+        pprint.pprint(tokens)
         pprint.pprint(tags)
         # do something to record the annotation
     return html.Div("annotations confirmed")

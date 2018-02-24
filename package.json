@@ -1,6 +1,6 @@
 {
   "name": "dash-materialsintelligence",
-  "version": "0.0.6",
+  "version": "0.0.61",
   "description": "Dash UI component suite for materialsintelligence project",
   "main": "lib/index.js",
   "repository": {

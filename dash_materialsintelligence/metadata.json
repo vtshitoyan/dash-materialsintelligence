@@ -61,7 +61,7 @@
     "displayName": "AnnotationContainer",
     "methods": [
       {
-        "name": "updateAnnotation",
+        "name": "updateToken",
         "docblock": null,
         "modifiers": [],
         "params": [
@@ -131,22 +131,7 @@
                 "text": {
                   "name": "string",
                   "required": true
-                }
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": "List of tokens used for the annotation"
-      },
-      "annotations": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "arrayOf",
-            "value": {
-              "name": "shape",
-              "value": {
+                },
                 "annotation": {
                   "name": "string",
                   "required": false
@@ -160,7 +145,7 @@
           }
         },
         "required": false,
-        "description": "Start indices opf tokens that are already identified/annotated"
+        "description": "List of tokens used for the annotation"
       },
       "labels": {
         "type": {

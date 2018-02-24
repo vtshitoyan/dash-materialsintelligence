@@ -7,31 +7,23 @@ describe('AnnotationContainer', () => {
     it('renders', () => {
         const component = shallow(
         <AnnotationContainer
+            doi="random doi"
             className="random stuff"
             doi="test doi"
             labels={[{'text': 'Material', 'value': 'material'},
                      {'text': 'Inorganic Crystal', 'value': 'inorganic_crystal'},
                      {'text': 'Main Material', 'value': 'main_material'}]}
-            tokens={[[{'text': 'ab', 'start': 1, 'end': 3},
-                           {'text': 'cd', 'start': 4, 'end': 6},
-                           {'text': 'ef', 'start': 7, 'end': 9},
-                           {'text': '.', 'start': 9, 'end': 10},
-                           {'text': 'gf', 'start': 11, 'end': 13}],
-                           [{'text': 'AB', 'start': 1, 'end': 3},
-                           {'text': 'CD', 'start': 4, 'end': 6},
-                           {'text': 'EF', 'start': 7, 'end': 9},
-                           {'text': '.', 'start': 9, 'end': 10},
-                           {'text': 'GF', 'start': 11, 'end': 13}]]}
-            annotations={[[{'id': 'token-0-2', 'annotation': null},
-                      {'id': 'token-3-5', 'annotation': 'material'},
-                      {'id': 'token-6-8', 'annotation': null},
-                      {'id': 'token-8-9', 'annotation': 'inorganic_crystal'},
-                      {'id': 'token-10-12', 'annotation': null}],
-                      [{'id': 'token-0-2', 'annotation': 'main_material'},
-                      {'id': 'token-3-5', 'annotation': null},
-                      {'id': 'token-6-8', 'annotation': null},
-                      {'id': 'token-8-9', 'annotation': null},
-                      {'id': 'token-10-12', 'annotation': null}]]}
+            tokens={[[{'id': 'token-0-2', 'text': 'ab', 'start': 0, 'end': 2, 'annotation': null},
+                       {'id': 'token-3-5', 'text': 'cd', 'start': 3, 'end': 5, 'annotation': null},
+                       {'id': 'token-6-8', 'text': 'ef', 'start': 6, 'end': 8, 'annotation': 'main_material'},
+                       {'id': 'token-8-9', 'text': '.', 'start': 8, 'end': 9, 'annotation': null},
+                       {'id': 'token-10-12', 'text': 'gf', 'start': 10, 'end': 12, 'annotation': 'material'}],
+                       [{'id': 'token-0-2', 'text': 'AB', 'start': 0, 'end': 2, 'annotation': null},
+                       {'id': 'token-3-5', 'text': 'CD', 'start': 3, 'end': 5, 'annotation': null},
+                       {'id': 'token-6-8', 'text': 'EF', 'start': 6, 'end': 8, 'annotation': null},
+                       {'id': 'token-8-9', 'text': '.', 'start': 8, 'end': 9, 'annotation': 'inorganic_crystal'},
+                       {'id': 'token-10-12', 'text': 'GF', 'start': 10, 'end': 12, 'annotation': null}]]}
+
             selectedValue='material'
         />);
 
