@@ -26,7 +26,7 @@ _js_dist = [
 
 _css_dist = [
     {
-        "relative_package_path": "react-select.css",
+        "relative_package_path": ["react-select.css", "dash-materialsintelligence.css"],
         "namespace": "dash_materialsintelligence",
     }
 ]

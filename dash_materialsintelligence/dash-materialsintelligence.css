@@ -1,0 +1,7 @@
+.tokens-row {
+    display: inline;
+}
+
+.tokens-row.tokens-0 {
+    display: block;
+}

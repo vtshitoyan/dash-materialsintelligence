@@ -67,7 +67,7 @@ export default class AnnotationContainer extends Component {
                          <div
                             key={rowIndex}
                             id={id + '-tokens-' + rowIndex}
-                            className={'tokens-' + rowIndex}>
+                            className={'tokens-row tokens-' + rowIndex}>
                          {tokenRow.map((token, index) => {
 //                            this.log.info(tokens[rowIndex][index])
                             return [<Annotatable
