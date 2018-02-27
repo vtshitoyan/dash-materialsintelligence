@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper'
 import Logger from 'console-log-level';
+import isTouchDevice from 'is-touch-device'
 import Annotatable from './Annotatable.react';
 import LabelsContainer from './LabelsContainer.react';
 
@@ -51,6 +52,7 @@ export default class AnnotationContainer extends Component {
 
     render() {
         const {id, className, labels} = this.props;
+        var touch = isTouchDevice()
         const {tokens, selectedValue} = this.state
         var hasTokens = (typeof tokens !== 'undefined')
         return (
@@ -75,6 +77,7 @@ export default class AnnotationContainer extends Component {
                                 key={rowIndex.toString() + '-' + index.toString()}
                                 index={index}
                                 rowIndex={rowIndex}
+                                touch={touch}
                                 annotation={hasTokens && tokens[rowIndex][index]['annotation']}
                                 currentLabel={selectedValue}
                                 value={token.text}

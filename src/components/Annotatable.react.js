@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Logger from 'console-log-level';
 
+
 /**
  * Annotatable is a clickable and selectable
  * Span component used to annotate a list of strings.
@@ -54,10 +55,9 @@ export default class Annotatable extends Component {
     }
 
     render() {
-        const {id, className, value} = this.props;
+        const {id, className, value, touch} = this.props;
         let spanClass = [className]
-
-        if(this.state.hover) {
+        if(this.state.hover&&!touch) {
             spanClass.push(this.state.currentLabel)
             spanClass.push('highlighted')
         } else if (this.state.annotation != null) {

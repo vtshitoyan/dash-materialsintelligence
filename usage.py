@@ -2,7 +2,6 @@ import dash_materialsintelligence as dmi
 import dash
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
-import dash_core_components as dcc
 import pprint
 
 app = dash.Dash('')
@@ -28,9 +27,9 @@ testTokens = [[{'id': 'token-0-2', 'text': 'ab', 'start': 0, 'end': 2, 'annotati
                {'id': 'token-8-9', 'text': '.', 'start': 8, 'end': 9, 'annotation': 'inorganic_crystal'},
                {'id': 'token-10-12', 'text': 'GF', 'start': 10, 'end': 12, 'annotation': None}]]
 
-testLabels = [{'text': 'Material', 'value': 'material'},
-              {'text': 'Inorganic Crystal', 'value': 'inorganic_crystal'},
-              {'text': 'Main Material', 'value': 'main_material'}]
+testLabels = [{'text': 'Material', 'value': 'label-1'},
+              {'text': 'Inorganic Crystal', 'value': 'label-2'},
+              {'text': 'Main Material', 'value': 'label-3'}]
 
 app.layout = html.Div([
     dmi.AnnotationContainer(
@@ -73,7 +72,6 @@ def load_next_abstract(
         n_clicks,
         tokens,
         tags):
-    pprint.pprint("here")
     if n_clicks is not None:
         pprint.pprint(tokens)
         pprint.pprint(tags)

@@ -5,3 +5,31 @@
 .tokens-row.tokens-0 {
     display: block;
 }
+
+/* highlighting */
+
+.token {
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.highlighted.label {
+    margin: 2px;
+}
+
+.highlighted.label-1 {
+    background-color: #fffacd;
+}
+
+.highlighted.label-2 {
+    background-color: #ffefd5;
+}
+
+.highlighted.label-3 {
+    background-color: #ffdab9;
+}
+
+.highlighted.label-4 {
+    background-color: #00FA9A
+}
