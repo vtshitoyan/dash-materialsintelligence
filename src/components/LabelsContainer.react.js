@@ -20,6 +20,17 @@ export default class LabelsContainer extends Component {
             changeEvent.target.value)
     }
 
+    /**
+     * This makes sure the values are always updated
+     */
+    componentWillReceiveProps(nextProps){
+        if (nextProps.labels != this.props.labels) {
+            this.setState({
+                selectedValue: nextProps.selectedValue
+            });
+        }
+    }
+
     render() {
         const {id, className, labels} = this.props;
         return (
