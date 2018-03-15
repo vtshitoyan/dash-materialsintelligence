@@ -18,6 +18,11 @@
     margin: 2px;
 }
 
+.highlighted.passive {
+  -webkit-filter: opacity(60%);
+  filter: opacity(60%);
+}
+
 .highlighted.label-1 {
     background-color: #fffacd;
 }

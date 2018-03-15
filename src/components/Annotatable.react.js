@@ -40,7 +40,7 @@ export default class Annotatable extends Component {
     }
 
     annotate() {
-        var newState = null;
+        var newState = this.props.passiveAnnotation;
         if (this.props.currentLabel != this.state.annotation) {
             newState = this.props.currentLabel;
         }
@@ -63,11 +63,10 @@ export default class Annotatable extends Component {
         } else if (this.state.annotation != null) {
             spanClass.push(this.state.annotation)
             spanClass.push('highlighted')
-        } else if (passiveAnnotation != null) {
-            spanClass.push(passiveAnnotation)
-            spanClass.push('highlighted')
+            if (this.state.annotation == passiveAnnotation) {
+                spanClass.push('passive')
+            }
         }
-
         const modifiedClass = spanClass.join(' ')
 
         return (
