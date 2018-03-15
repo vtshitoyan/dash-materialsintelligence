@@ -162,18 +162,13 @@
         "required": false,
         "description": "This goes in to create the labels"
       },
-      "passiveAnnotations": {
+      "passiveLabels": {
         "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "arrayOf",
-            "value": {
-              "name": "string"
-            }
-          }
+          "name": "custom",
+          "raw": "LabelsContainer.propTypes.labels"
         },
         "required": false,
-        "description": "This goes in to create the labels"
+        "description": "Already existing labels that should be passively highlighted"
       },
       "selectedValue": {
         "type": {

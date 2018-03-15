@@ -57,6 +57,7 @@ def serve_layout(doi="none", tokens=testTokens[0]):
             doi=doi,
             tokens=tokens,
             labels=testLabels,
+            passiveLabels=[testLabels[1]],
             className="testClass",
             id="annotation_container",
             selectedValue=testLabels[0]["value"]

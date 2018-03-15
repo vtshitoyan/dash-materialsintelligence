@@ -62,15 +62,30 @@ export default class AnnotationContainer extends Component {
         var touch = isTouchDevice()
         const {tokens, selectedValue, initialTokens} = this.state
 
-        var activeLabelKeys = []
-        for (var i in labels) { activeLabelKeys.push(labels[i].value) }
+        var passiveLabels = [];
+        if (typeof this.props.passiveLabels !== 'undefined') {
+            for (var j in this.props.passiveLabels) {passiveLabels.push(this.props.passiveLabels[j].value)}
+            var k = labels.length
+            while (k--) {
+                if (passiveLabels.indexOf(labels[k].value) >= 0) {
+                    labels.splice(k, 1);
+                }
+            }
+        }
+
+        var activeLabels = []
+        for (var i in labels) { activeLabels.push(labels[i].value) }
 
         var passiveAnnotations = [];
         for (var row in initialTokens) {
             passiveAnnotations.push([])
             for (var col in initialTokens[row]) {
                 var ann = initialTokens[row][col]['annotation']
-                activeLabelKeys.indexOf(ann) < 0 ? passiveAnnotations[row][col] = ann : passiveAnnotations[row][col] = null;
+                if (activeLabels.indexOf(ann) < 0)
+                    passiveAnnotations[row][col] = ann
+                else {
+                    passiveAnnotations[row][col] = null;
+                }
             }
         }
 
@@ -143,9 +158,9 @@ AnnotationContainer.propTypes = {
     labels: LabelsContainer.propTypes.labels,
 
     /**
-     * This goes in to create the labels
+     * Already existing labels that should be passively highlighted
      */
-    passiveAnnotations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+    passiveLabels: LabelsContainer.propTypes.labels,
 
     /**
      * Start indices opf tokens that are already identified/annotated
