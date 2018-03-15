@@ -32,11 +32,11 @@ export default class AnnotationContainer extends Component {
                 }
             }
         }
-        this.passiveAnnotations = passiveAnnotations;
 
         this.state = {
             tokens: props.tokens,
-            selectedValue: props.selectedValue
+            selectedValue: props.selectedValue,
+            passiveAnnotations: passiveAnnotations
         }
 
         this.updateToken = this.updateToken.bind(this);
@@ -77,7 +77,7 @@ export default class AnnotationContainer extends Component {
     render() {
         const {id, className, labels} = this.props;
         var touch = isTouchDevice()
-        const {tokens, selectedValue} = this.state
+        const {tokens, selectedValue, passiveAnnotations} = this.state
         return (
             <div id={id} className={className}>
             <LabelsContainer
@@ -101,7 +101,7 @@ export default class AnnotationContainer extends Component {
                                 rowIndex={rowIndex}
                                 touch={touch}
                                 annotation={token['annotation']}
-                                passiveAnnotation={this.passiveAnnotations[rowIndex][index]}
+                                passiveAnnotation={passiveAnnotations[rowIndex][index]}
                                 currentLabel={selectedValue}
                                 value={token.text}
                                 id={rowIndex + '-' + token.id}
