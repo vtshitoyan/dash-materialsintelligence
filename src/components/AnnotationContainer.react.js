@@ -48,7 +48,6 @@ export default class AnnotationContainer extends Component {
             });
             this.props.setProps({tokens: newTokens}) // for dash
         }
-        this.log.info(newTokens)
     }
 
     updateLabel(newLabelValue){
