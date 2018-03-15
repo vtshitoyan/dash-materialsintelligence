@@ -32,7 +32,8 @@ export default class AnnotationContainer extends Component {
         if (nextProps.doi != this.props.doi) {
             this.setState({
                 tokens: nextProps.tokens,
-                selectedValue: nextProps.selectedValue
+                selectedValue: nextProps.selectedValue,
+                initialTokens : nextProps.tokens
             });
         }
     }
