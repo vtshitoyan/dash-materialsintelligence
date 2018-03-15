@@ -49,6 +49,7 @@ export default class AnnotationContainer extends Component {
         this.setState({
             selectedValue: newLabelValue
         });
+        this.props.setProps({selectedValue: newLabelValue}) // for dash
     }
 
     render() {
