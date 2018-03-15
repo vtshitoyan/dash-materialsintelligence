@@ -162,6 +162,19 @@
         "required": false,
         "description": "This goes in to create the labels"
       },
+      "passiveAnnotations": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "arrayOf",
+            "value": {
+              "name": "string"
+            }
+          }
+        },
+        "required": false,
+        "description": "This goes in to create the labels"
+      },
       "selectedValue": {
         "type": {
           "name": "string"

@@ -13,34 +13,16 @@ import LabelsContainer from './LabelsContainer.react';
 export default class AnnotationContainer extends Component {
     constructor(props) {
         super(props);
+
+        this.updateToken = this.updateToken.bind(this);
+        this.updateLabel = this.updateLabel.bind(this);
         this.log = Logger({level: 'info'});
-
-        var activeLabelKeys = []
-        for (var i in props.labels) {
-           activeLabelKeys.push(props.labels[i].value)
-        }
-
-        var passiveAnnotations = [];
-        for (var row in props.tokens) {
-            passiveAnnotations.push([])
-            for (var col in props.tokens[row]) {
-                var ann = props.tokens[row][col]['annotation']
-                if (activeLabelKeys.indexOf(ann) < 0) {
-                    passiveAnnotations[row][col] = ann;
-                } else {
-                    passiveAnnotations[row][col] = null;
-                }
-            }
-        }
 
         this.state = {
             tokens: props.tokens,
             selectedValue: props.selectedValue,
-            passiveAnnotations: passiveAnnotations
+            initialTokens : props.tokens
         }
-
-        this.updateToken = this.updateToken.bind(this);
-        this.updateLabel = this.updateLabel.bind(this);
     }
 
     /**
@@ -77,7 +59,20 @@ export default class AnnotationContainer extends Component {
     render() {
         const {id, className, labels} = this.props;
         var touch = isTouchDevice()
-        const {tokens, selectedValue, passiveAnnotations} = this.state
+        const {tokens, selectedValue, initialTokens} = this.state
+
+        var activeLabelKeys = []
+        for (var i in labels) { activeLabelKeys.push(labels[i].value) }
+
+        var passiveAnnotations = [];
+        for (var row in initialTokens) {
+            passiveAnnotations.push([])
+            for (var col in initialTokens[row]) {
+                var ann = initialTokens[row][col]['annotation']
+                activeLabelKeys.indexOf(ann) < 0 ? passiveAnnotations[row][col] = ann : passiveAnnotations[row][col] = null;
+            }
+        }
+
         return (
             <div id={id} className={className}>
             <LabelsContainer
@@ -145,6 +140,11 @@ AnnotationContainer.propTypes = {
      * This goes in to create the labels
      */
     labels: LabelsContainer.propTypes.labels,
+
+    /**
+     * This goes in to create the labels
+     */
+    passiveAnnotations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
 
     /**
      * Start indices opf tokens that are already identified/annotated
