@@ -13,12 +13,34 @@ import LabelsContainer from './LabelsContainer.react';
 export default class AnnotationContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = { tokens: props.tokens,
-                       selectedValue: props.selectedValue
-                       }
+        this.log = Logger({level: 'info'});
+
+        var activeLabelKeys = []
+        for (var i in props.labels) {
+           activeLabelKeys.push(props.labels[i].value)
+        }
+
+        var passiveAnnotations = [];
+        for (var row in props.tokens) {
+            passiveAnnotations.push([])
+            for (var col in props.tokens[row]) {
+                var ann = props.tokens[row][col]['annotation']
+                if (activeLabelKeys.indexOf(ann) < 0) {
+                    passiveAnnotations[row][col] = ann;
+                } else {
+                    passiveAnnotations[row][col] = null;
+                }
+            }
+        }
+        this.passiveAnnotations = passiveAnnotations;
+
+        this.state = {
+            tokens: props.tokens,
+            selectedValue: props.selectedValue
+        }
+
         this.updateToken = this.updateToken.bind(this);
         this.updateLabel = this.updateLabel.bind(this);
-        this.log = Logger({level: 'info'});
     }
 
     /**
@@ -56,7 +78,6 @@ export default class AnnotationContainer extends Component {
         const {id, className, labels} = this.props;
         var touch = isTouchDevice()
         const {tokens, selectedValue} = this.state
-        var hasTokens = (typeof tokens !== 'undefined')
         return (
             <div id={id} className={className}>
             <LabelsContainer
@@ -73,17 +94,17 @@ export default class AnnotationContainer extends Component {
                             id={id + '-tokens-' + rowIndex}
                             className={'tokens-row tokens-' + rowIndex}>
                          {tokenRow.map((token, index) => {
-//                            this.log.info(tokens[rowIndex][index])
                             return [<Annotatable
                                 className="token"
                                 key={rowIndex.toString() + '-' + index.toString()}
                                 index={index}
                                 rowIndex={rowIndex}
                                 touch={touch}
-                                annotation={hasTokens && tokens[rowIndex][index]['annotation']}
+                                annotation={token['annotation']}
+                                passiveAnnotation={this.passiveAnnotations[rowIndex][index]}
                                 currentLabel={selectedValue}
                                 value={token.text}
-                                id={rowIndex + '-' + tokens[rowIndex][index]['id']}
+                                id={rowIndex + '-' + token.id}
                                 updateCallback={this.updateToken}/>, <span> </span>]
                          })}</div>
                      )

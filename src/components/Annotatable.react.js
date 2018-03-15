@@ -55,13 +55,16 @@ export default class Annotatable extends Component {
     }
 
     render() {
-        const {id, className, value, touch} = this.props;
+        const {id, className, value, touch, passiveAnnotation} = this.props;
         let spanClass = [className]
         if(this.state.hover&&!touch) {
             spanClass.push(this.state.currentLabel)
             spanClass.push('highlighted')
         } else if (this.state.annotation != null) {
             spanClass.push(this.state.annotation)
+            spanClass.push('highlighted')
+        } else if (passiveAnnotation != null) {
+            spanClass.push(passiveAnnotation)
             spanClass.push('highlighted')
         }
 
@@ -100,6 +103,11 @@ Annotatable.propTypes = {
      * A label that will be printed when this component is rendered.
      */
     annotation: PropTypes.string,
+
+    /**
+     * A label that will be printed when this component is rendered.
+     */
+    passiveAnnotation: PropTypes.string,
 
     /**
      * The value is the text
