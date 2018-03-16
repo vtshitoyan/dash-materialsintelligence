@@ -34,10 +34,12 @@ export default class Annotatable extends Component {
         }
     }
 
-    handleHover(){
-        this.setState({
-            hover: !this.state.hover
-        });
+    handleHover(e){
+        if (e.type == 'mouseleave') {
+            this.setState({ hover: false });
+        } else {
+            this.setState({ hover: true });
+        }
     }
 
     annotate() {
@@ -73,8 +75,8 @@ export default class Annotatable extends Component {
         return (
             <span id={id}
                   className={modifiedClass}
-                  onMouseEnter={this.handleHover}
-                  onMouseLeave={this.handleHover}
+                  onMouseEnter={(e) => this.handleHover(e)}
+                  onMouseLeave={(e) => this.handleHover(e)}
                   onClick={this.annotate}
             >
                 {value}

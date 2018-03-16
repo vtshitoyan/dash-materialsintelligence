@@ -2,7 +2,6 @@ import dash_materialsintelligence as dmi
 import dash
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
-import pprint
 import random
 
 app = dash.Dash('')
@@ -73,19 +72,14 @@ def serve_layout(doi="none", tokens=testTokens[0]):
         ),
         html.Div("doi is " + doi, id="test_output"),
         html.Div(html.Button("Confirm", id="annotate_confirm"))
-])
+    ])
+
 
 app.layout = html.Div(serve_layout(),id="content")
 
-# @app.callback(
-#     dash.dependencies.Output('output', 'children'),
-#     [dash.dependencies.Input('input', 'value')])
-# def display_output(value):
-#     return 'You have clicked {} times'.format(value)
-
 
 """
-Annotation App Callbacks
+App Callbacks
 """
 @app.callback(
     Output('content', 'children'),

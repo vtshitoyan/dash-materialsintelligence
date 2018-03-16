@@ -7,7 +7,12 @@
         "name": "handleHover",
         "docblock": null,
         "modifiers": [],
-        "params": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
         "returns": null
       },
       {
