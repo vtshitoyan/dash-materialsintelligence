@@ -98,8 +98,6 @@ def load_next_abstract(
         tags):
     doi="none"
     if n_clicks is not None:
-        pprint.pprint(tokens)
-        pprint.pprint(tags)
         # do something to record the annotation
         doi = str(random.randint(1, 100000))
         tokens = testTokens[random.randint(1, 2) - 1]

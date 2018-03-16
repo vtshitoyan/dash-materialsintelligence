@@ -99,12 +99,15 @@ export default class AnnotationContainer extends Component {
                 updateLabelCallback={this.updateLabel}/>
             <div>
                 {typeof tokens !== 'undefined' && tokens.map((tokenRow, rowIndex) => {
+                     var nr_tokens = tokens[rowIndex].length
                      return (
                          <div
                             key={rowIndex}
                             id={id + '-tokens-' + rowIndex}
                             className={'tokens-row tokens-' + rowIndex}>
                          {tokenRow.map((token, index) => {
+                            var space;
+                            token.end == tokens[rowIndex][Math.min(index+1,nr_tokens-1)].start ? space = '' : space = ' '
                             return [<Annotatable
                                 className="token"
                                 key={rowIndex.toString() + '-' + index.toString()}
@@ -116,7 +119,7 @@ export default class AnnotationContainer extends Component {
                                 currentLabel={selectedValue}
                                 value={token.text}
                                 id={rowIndex + '-' + token.id}
-                                updateCallback={this.updateToken}/>, <span> </span>]
+                                updateCallback={this.updateToken}/>, <span>{space}</span>]
                          })}</div>
                      )
                 })}

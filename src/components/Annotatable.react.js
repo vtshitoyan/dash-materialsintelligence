@@ -28,7 +28,8 @@ export default class Annotatable extends Component {
         })
         if (this.props.value != nextProps.value) {
             this.setState({
-                annotation: nextProps.annotation
+                annotation: nextProps.annotation,
+                hover: nextProps.hover
             })
         }
     }
