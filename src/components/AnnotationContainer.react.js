@@ -150,6 +150,7 @@ AnnotationContainer.propTypes = {
                 end: PropTypes.number.isRequired,
                 text: PropTypes.string.isRequired,
                 annotation: PropTypes.string,
+                pos: PropTypes.string,
                 id: PropTypes.string
             }
         )

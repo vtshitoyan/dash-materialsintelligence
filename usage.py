@@ -93,6 +93,8 @@ def load_next_abstract(
     doi="none"
     if n_clicks is not None:
         # do something to record the annotation
+        for tokenRow in tokens:
+            print([token["annotation"] for token in tokenRow])
         doi = str(random.randint(1, 100000))
         tokens = testTokens[random.randint(1, 2) - 1]
     return serve_layout(doi=doi, tokens=tokens)

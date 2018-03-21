@@ -148,6 +148,10 @@
                   "name": "string",
                   "required": false
                 },
+                "pos": {
+                  "name": "string",
+                  "required": false
+                },
                 "id": {
                   "name": "string",
                   "required": false
