@@ -19,10 +19,8 @@
 }
 
 .highlighted.disagreement {
-    border: 1px solid black;
-    background: #444;
+    background: #333;
     color: red;
-    padding: 1px;
 }
 
 .highlighted.passive {
