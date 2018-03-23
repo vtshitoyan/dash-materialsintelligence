@@ -14,7 +14,7 @@ export default class Annotatable extends Component {
             hover: false,
             annotation: props.annotation,
             currentLabel: props.currentLabel,
-            text: props.value};
+            extraText: ''};
         this.handleHover = this.handleHover.bind(this);
         this.annotate = this.annotate.bind(this);
         this.log = Logger({level: 'info'});
@@ -31,7 +31,7 @@ export default class Annotatable extends Component {
             this.setState({
                 annotation: nextProps.annotation,
                 hover: nextProps.hover,
-                text: nextProps.value
+                extraText: ''
             })
         }
     }
@@ -46,7 +46,6 @@ export default class Annotatable extends Component {
 
     annotate() {
         var newState = this.props.passiveAnnotation;
-        this.log.info(this.props.currentLabel)
         if (null != this.props.currentLabel && this.props.currentLabel != this.state.annotation) {
             newState = this.props.currentLabel;
         }
@@ -61,15 +60,11 @@ export default class Annotatable extends Component {
     }
 
     render() {
-        const {id, className, touch, passiveAnnotation} = this.props;
+        const {id, className, value, touch, passiveAnnotation} = this.props;
         let spanClass = [className]
         if(this.state.hover&&!touch) {
             if (this.state.annotation instanceof Array) {
-                var hoverText = this.state.annotation.join(', ')
-                if (this.state.text != hoverText) {
-                    this.setState({ text: hoverText })
-                }
-                spanClass.push('disagreement')
+                spanClass.push('disagreement')  // no change for disagreement text
             } else {
                 spanClass.push(this.state.currentLabel)
             }
@@ -84,8 +79,16 @@ export default class Annotatable extends Component {
             }
         }
 
-        if (!this.state.hover && this.state.text != this.props.value) {
-            this.setState({ text: this.props.value })
+        // adding annotation disagreement text
+        if (this.state.annotation instanceof Array) {
+            var disagreementText = this.state.annotation.filter(x => x != null).join(', ')
+            if (this.state.extraText != ' (' + disagreementText + ')') {
+                this.setState({ extraText: ' (' + disagreementText + ')'})
+            }
+        } else {
+            if (this.state.extraText != '') {
+                this.setState({ extraText: ''})
+            }
         }
 
         const modifiedClass = spanClass.join(' ')
@@ -97,7 +100,7 @@ export default class Annotatable extends Component {
                   onMouseLeave={(e) => this.handleHover(e)}
                   onClick={this.annotate}
             >
-                {this.state.text}
+                {value + this.state.extraText}
             </span>
         );
     }

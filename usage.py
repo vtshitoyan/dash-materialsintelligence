@@ -20,7 +20,7 @@ testTokens.append([[{'id': 'token-0-2', 'text': 'ab', 'start': 0, 'end': 2, 'ann
                {'id': 'token-10-12', 'text': 'gf', 'start': 10, 'end': 12, 'annotation': 'label-1'}],
                [{'id': 'token-0-2', 'text': 'AB', 'start': 0, 'end': 2, 'annotation': None},
                {'id': 'token-3-5', 'text': 'CD', 'start': 3, 'end': 5, 'annotation': None},
-               {'id': 'token-6-8', 'text': 'EF', 'start': 6, 'end': 8, 'annotation': None},
+               {'id': 'token-6-8', 'text': 'EF', 'start': 6, 'end': 8, 'annotation': [None, 'label-1']},
                {'id': 'token-8-9', 'text': '.', 'start': 8, 'end': 9, 'annotation': 'label-4'},
                {'id': 'token-10-12', 'text': 'GF', 'start': 10, 'end': 12, 'annotation': None}],
               [{'id': 'token-0-2', 'text': 'AB', 'start': 0, 'end': 2, 'annotation': None},
