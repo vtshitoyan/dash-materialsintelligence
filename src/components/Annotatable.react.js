@@ -13,7 +13,8 @@ export default class Annotatable extends Component {
         this.state = {
             hover: false,
             annotation: props.annotation,
-            currentLabel: props.currentLabel };
+            currentLabel: props.currentLabel,
+            text: props.value};
         this.handleHover = this.handleHover.bind(this);
         this.annotate = this.annotate.bind(this);
         this.log = Logger({level: 'info'});
@@ -29,7 +30,8 @@ export default class Annotatable extends Component {
         if (this.props.value != nextProps.value) {
             this.setState({
                 annotation: nextProps.annotation,
-                hover: nextProps.hover
+                hover: nextProps.hover,
+                text: nextProps.value
             })
         }
     }
@@ -44,7 +46,8 @@ export default class Annotatable extends Component {
 
     annotate() {
         var newState = this.props.passiveAnnotation;
-        if (this.props.currentLabel != this.state.annotation) {
+        this.log.info(this.props.currentLabel)
+        if (null != this.props.currentLabel && this.props.currentLabel != this.state.annotation) {
             newState = this.props.currentLabel;
         }
         this.setState({
@@ -58,18 +61,33 @@ export default class Annotatable extends Component {
     }
 
     render() {
-        const {id, className, value, touch, passiveAnnotation} = this.props;
+        const {id, className, touch, passiveAnnotation} = this.props;
         let spanClass = [className]
         if(this.state.hover&&!touch) {
-            spanClass.push(this.state.currentLabel)
+            if (this.state.annotation instanceof Array) {
+                var hoverText = this.state.annotation.join(', ')
+                if (this.state.text != hoverText) {
+                    this.setState({ text: hoverText })
+                }
+                spanClass.push('disagreement')
+            } else {
+                spanClass.push(this.state.currentLabel)
+            }
             spanClass.push('highlighted')
         } else if (this.state.annotation != null) {
             spanClass.push(this.state.annotation)
             spanClass.push('highlighted')
-            if (this.state.annotation == passiveAnnotation) {
+            if (this.state.annotation instanceof Array) {
+                spanClass.push('disagreement')
+            } else if (this.state.annotation == passiveAnnotation) {
                 spanClass.push('passive')
             }
         }
+
+        if (!this.state.hover && this.state.text != this.props.value) {
+            this.setState({ text: this.props.value })
+        }
+
         const modifiedClass = spanClass.join(' ')
 
         return (
@@ -79,7 +97,7 @@ export default class Annotatable extends Component {
                   onMouseLeave={(e) => this.handleHover(e)}
                   onClick={this.annotate}
             >
-                {value}
+                {this.state.text}
             </span>
         );
     }
@@ -92,24 +110,29 @@ Annotatable.propTypes = {
     id: PropTypes.string,
 
     /**
-     * A label that will be printed when this component is rendered.
+     * Initial className
      */
     className: PropTypes.string,
 
      /**
-     * A label that will be printed when this component is rendered.
+     * The selected label that will be assigned to the object annotation when it is clicked
      */
     currentLabel: PropTypes.string,
 
     /**
-     * A label that will be printed when this component is rendered.
+     * The annotation of the object that changes when the object is clicked
      */
-    annotation: PropTypes.string,
-
+    annotation: PropTypes.oneOfType([
+                    PropTypes.string,
+                    PropTypes.arrayOf(PropTypes.string)
+                ]),
     /**
-     * A label that will be printed when this component is rendered.
+     * Annotation that will not change and is just for styling / highlighting
      */
-    passiveAnnotation: PropTypes.string,
+    passiveAnnotation: PropTypes.oneOfType([
+                           PropTypes.string,
+                           PropTypes.arrayOf(PropTypes.string)
+                       ]),
 
     /**
      * The value is the text

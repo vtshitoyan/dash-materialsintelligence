@@ -18,6 +18,13 @@
     margin: 2px;
 }
 
+.highlighted.disagreement {
+    border: 1px solid black;
+    background: #444;
+    color: red;
+    padding: 1px;
+}
+
 .highlighted.passive {
   -webkit-filter: opacity(60%);
   filter: opacity(60%);

@@ -36,28 +36,50 @@
           "name": "string"
         },
         "required": false,
-        "description": "A label that will be printed when this component is rendered."
+        "description": "Initial className"
       },
       "currentLabel": {
         "type": {
           "name": "string"
         },
         "required": false,
-        "description": "A label that will be printed when this component is rendered."
+        "description": "The selected label that will be assigned to the object annotation when it is clicked"
       },
       "annotation": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "string"
+              }
+            }
+          ]
         },
         "required": false,
-        "description": "A label that will be printed when this component is rendered."
+        "description": "The annotation of the object that changes when the object is clicked"
       },
       "passiveAnnotation": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "string"
+              }
+            }
+          ]
         },
         "required": false,
-        "description": "A label that will be printed when this component is rendered."
+        "description": "Annotation that will not change and is just for styling / highlighting"
       },
       "value": {
         "type": {
@@ -145,7 +167,18 @@
                   "required": true
                 },
                 "annotation": {
-                  "name": "string",
+                  "name": "union",
+                  "value": [
+                    {
+                      "name": "string"
+                    },
+                    {
+                      "name": "arrayOf",
+                      "value": {
+                        "name": "string"
+                      }
+                    }
+                  ],
                   "required": false
                 },
                 "pos": {
