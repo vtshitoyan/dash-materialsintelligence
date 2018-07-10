@@ -273,6 +273,20 @@
         },
         "required": false,
         "description": "selected value"
+      },
+      "placeholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "placeholder"
+      },
+      "promptText": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "propmpt text when new option is created"
       }
     }
   },

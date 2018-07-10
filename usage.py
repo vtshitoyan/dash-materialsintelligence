@@ -6,6 +6,8 @@ import random
 
 app = dash.Dash('')
 
+app.title = "Dash - Materials Intelligence"
+
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
 app.config.suppress_callback_exceptions = True
 
@@ -63,11 +65,13 @@ def serve_layout(doi="none", tokens=testTokens[0]):
         ),
         dmi.DropdownCreatable(
             options=[
-                {'value': 'R', 'label': 'Red'},
-                {'value': 'G', 'label': 'Green'},
-                {'value': 'B', 'label': 'Blue'}],
+                {'value': '', 'label': 'material:'},
+                {'value': '', 'label': 'property:'},
+                {'value': '', 'label': 'application:'}],
             multi=True,
             id="tags_selector",
+            placeholder="Add filters...",
+            promptText="Add filter ",
             value=None,
         ),
         html.Div("doi is " + doi, id="test_output"),
