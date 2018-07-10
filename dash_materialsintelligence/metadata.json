@@ -287,6 +287,13 @@
         },
         "required": false,
         "description": "propmpt text when new option is created"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "className"
       }
     }
   },

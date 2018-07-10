@@ -28,6 +28,7 @@ export default class DropdownCreatable extends Component {
         const promptTextCreator = label =>  `${this.props.promptText} "${label}"`
         return <Creatable {...this.props}
                        value={this.state.value}
+                       className={this.props.className}
                        promptTextCreator={promptTextCreator}
                        onChange={this.updateState.bind(this)}
                        />
